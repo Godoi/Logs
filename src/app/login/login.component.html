@@ -1,0 +1,43 @@
+
+
+<div class="login center-vertical">
+
+    <div class="center-content">
+      <div class="form-signin">
+        <form [formGroup]="loginForm"(submit)="login($event)">
+
+          <p class="text-center"> Faça seu login </p>
+
+          <input
+            id="username"
+            placeholder="Username"
+            class="form-control top"
+            type="text"
+            name="username"
+            formControlName="username"
+            [(ngModel)]="log.username"
+            [ngClass]="{'has-error':!loginForm.controls['username'].valid && loginForm.controls['username'].touched}">
+
+          <input
+            id="password"
+            placeholder="Password"
+            type="password"
+            class="form-control bottom"
+            name="password"
+            formControlName="password"
+            [(ngModel)]="log.password"
+            [ngClass]="{'has-error':!loginForm.controls['password'].valid && loginForm.controls['password'].touched}">
+
+          <div class="checkbox">
+              <label>
+
+              </label>
+          </div>
+
+          <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!loginForm.valid">Logar</button>
+
+        </form>
+      </div>
+    </div>
+
+</div>

@@ -1,0 +1,22 @@
+<div class="navigation">
+  <div class="row">
+    <div class="col-xs-6 col-md-4">
+      <h1 class="navigation__logotipo">
+        <a routerLink="/" i18n class="navigation__logotipo-link">
+          Checklistfácil
+        </a>
+      </h1>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-86 fl-right">
+          <div class="container-fluid">
+            <ul class="nav navbar-nav" *ngIf="isLogged">
+              <li> <a href="change" i18n >Change Logs</a> </li>
+              <li> <a href="javascript:void();" (click)="logout()">
+                      Logout
+                      <span class="glyphicon glyphicon-off"></span>
+                    </a>
+            </ul>
+        </div>
+    </div>
+  </div>
+</div>

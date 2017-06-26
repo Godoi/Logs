@@ -1,0 +1,198 @@
+<div class="row">
+    <div class="container pt98">
+        <div class="row">
+          <div class="col-sm-5">
+             <p class="mtb20"> Total de registros: <strong> {{metas.total}} </strong></p>
+          </div>
+          <div class="col-sm-7 text-right">
+
+         </div>
+        </div>
+
+       <div class="panel panel-primary">
+
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+          <h4> Change Logs </h4>
+          <p class="filter" (click)="openFilter()">
+              Pesquisar
+              <span class="glyphicon glyphicon-search"> </span>
+          </p>
+
+        </div>
+
+            <!-- Table -->
+             <table class="table data-table data-table-striped">
+                <thead>
+                    <tr>
+                        <th [rzSortable]="'message'" (change)="changeOrder($event)" class="glyphicon"> <span> Message </span> </th>
+                        <th [rzSortable]="'level'" (change)="changeOrder($event)" class="glyphicon"> <span> Level </span> </th>
+                        <th [rzSortable]="'level_name'" (change)="changeOrder($event)" class="glyphicon"> <span> Level Name </span> </th>
+                        <th [rzSortable]="'channel'" (change)="changeOrder($event)" class="glyphicon"> <span> Channel </span> </th>
+                        <th [rzSortable]="'username'" (change)="changeOrder($event)" class="glyphicon"> <span> Username </span> </th>
+                        <th [rzSortable]="'user_id'" (change)="changeOrder($event)" class="glyphicon"> <span> User ID </span> </th>
+                        <th [rzSortable]="'table'" (change)="changeOrder($event)" class="glyphicon"> <span> Table </span> </th>
+                        <th [rzSortable]="'operation'" (change)="changeOrder($event)" class="glyphicon"> <span> Operation </span> </th>
+                        <th>  </th>
+                    </tr>
+                    <tr *ngIf="opFilter" class="box-filter">
+                        <th> <input #inpMessage id="inp-message" type="text" class="form-control" placeholder="Message" (keyup)="search(inpMessage.value,'message',0)"> </th>
+                        <th> <input #inpLevel type="text" class="form-control" placeholder="Level" (keyup)="search(inpLevel.value,'level',1)"> </th>
+                        <th> <input #inpLevelName type="text" class="form-control" placeholder="Level Name" (keyup)="search(inpLevelName.value,'level_name',2)"> </th>
+                        <th> <input #inpChannel type="text" class="form-control" placeholder="Channel" (keyup)="search(inpChannel.value,'channel',3)"> </th>
+                        <th> <input #inpUsername type="text" class="form-control" placeholder="Username" (keyup)="search(inpUsername.value,'username',4)"> </th>
+                        <th> <input #inpUserId type="text" class="form-control" placeholder="User ID" (keyup)="search(inpUserId.value,'user_id',5)"> </th>
+                        <th> <input #inpTable type="text" class="form-control" placeholder="Table" (keyup)="search(inpTable.value,'table',6)"> </th>
+                        <th> <input #inpOperation type="text" class="form-control" placeholder="Operation" (keyup)="search(inpOperation.value,'operation',7)"> </th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-template ngFor let-change [ngForOf]="changes" let-odd="odd" let-even="even" let-i="index" | asyn>
+                      <tr
+                        class="line"
+                        [class.even]="even"
+                        (click)="openDetail(i)" >
+                          <td scope="row">{{change.message}} </td>
+                          <td>{{change.level}}</td>
+                          <td>{{change.level_name}}</td>
+                          <td>{{change.channel}}</td>
+                          <td>{{change.username}}</td>
+                          <td>{{change.user_id}}</td>
+                          <td>{{change.table}}</td>
+                          <td>{{change.operation}}</td>
+                          <td> </td>
+                      </tr>
+                      <tr
+                        class="detail"
+                        [id]="i"
+                        [class.even]="even"
+                        [class.active]="opDetail === i"
+                        >
+                        <td colspan="9">
+                          <div class="box-detail">
+                            <div class="row">
+                              <div class="col">
+                                  <div class="col-xs-6 col-md-3">
+                                     <strong> Nome </strong>
+                                    <ul class="list">
+                                      <li *ngIf="change.operation === operation"> <p> <strong> New value: </strong>  {{change.columns.nome?.new_value}} </p> </li>
+                                      <li> <p> <strong> Old value: </strong>  {{change.columns.nome?.old_value}} </p> </li>
+                                    </ul>
+                                  </div>
+                                  <div class="col-xs-6 col-md-3">
+                                     <strong> Ativo </strong>
+                                    <ul class="list">
+                                      <li *ngIf="change.operation === operation"> <p> <strong> New value: </strong> {{change.columns.ativo?.new_value}} </p> </li>
+                                      <li> <p> <strong> Old value: </strong> {{change.columns.ativo?.old_value}} </p> </li>
+                                    </ul>
+                                  </div>
+                                  <div class="col-xs-6 col-md-3">
+                                    <strong> Email </strong>
+                                    <ul class="list">
+                                      <li *ngIf="change.operation === operation"> <p> <strong> New value: </strong> <br> {{change.columns.email?.new_value}} </p> </li>
+                                      <li> <p> <strong> Old value: </strong> <br> {{change.columns.email?.old_value}} </p> </li>
+                                    </ul>
+                                  </div>
+                                  <div class="col-xs-6 col-md-3">
+                                    <strong> ID </strong>
+                                    <ul class="list">
+                                      <li *ngIf="change.operation === operation"> <p> <strong> New value: </strong> {{change.columns.id?.new_value}} </p> </li>
+                                      <li> <p> <strong> Old value: </strong> {{change.columns.id?.old_value}} </p> </li>
+                                    </ul>
+                                  </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col">
+
+                                  <div class="col-xs-6 col-md-3">
+                                    <strong> ID Cidade </strong>
+                                    <ul class="list">
+                                      <li *ngIf="change.operation === operation"> <p> <strong> New value: </strong>  {{change.columns.id_cidade?.new_value}} </p> </li>
+                                      <li> <p> <strong> Old value: </strong>  {{change.columns.id_cidade?.old_value}} </p> </li>
+                                    </ul>
+                                  </div>
+                                  <div class="col-xs-6 col-md-3">
+                                    <strong> ID Empresa </strong>
+                                    <ul class="list">
+                                      <li *ngIf="change.operation === operation"> <p> <strong> New value: </strong>  {{change.columns.id_empresa?.new_value}} </p> </li>
+                                      <li> <p> <strong> Old value: </strong>  {{change.columns.id_empresa?.old_value}} </p> </li>
+                                    </ul>
+                                  </div>
+                                  <div class="col-xs-6 col-md-3">
+                                    <strong> ID Estado </strong>
+                                    <ul class="list">
+                                      <li *ngIf="change.operation === operation"> <p> <strong> New value: </strong>  {{change.columns.id_estado?.new_value}} </p> </li>
+                                      <li> <p> <strong> Old value: </strong>  {{change.columns.id_estado?.old_value}} </p> </li>
+                                    </ul>
+                                  </div>
+                                  <div class="col-xs-6 col-md-3">
+                                    <strong> ID Gerente </strong>
+                                    <ul class="list">
+                                      <li *ngIf="change.operation === operation"> <p> <strong> New value: </strong>  {{change.columns.id_gerente?.new_value}} </p> </li>
+                                      <li> <p> <strong> Old value: </strong>  {{change.columns.id_gerente?.old_value}} </p> </li>
+                                    </ul>
+                                  </div>
+
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-xs-6 col-md-3">
+                                    <strong> ID Pais </strong>
+                                    <ul class="list">
+                                      <li *ngIf="change.operation === operation"> <p> <strong> New value: </strong>  {{change.columns.id_pais?.new_value}} </p> </li>
+                                      <li> <p> <strong> Old value: </strong>  {{change.columns.id_pais?.old_value}} </p> </li>
+                                    </ul>
+                              </div>
+                              <div class="col-xs-6 col-md-3">
+                                    <strong> ID Região Padrão </strong>
+                                    <ul class="list">
+                                      <li *ngIf="change.operation === operation"> <p> <strong> New value: </strong>  {{change.columns.id_regiao_padrao?.new_value}} </p> </li>
+                                      <li> <p> <strong> Old value: </strong>  {{change.columns.id_regiao_padrao?.old_value}} </p> </li>
+                                    </ul>
+                              </div>
+                              <div class="col-xs-6 col-md-3">
+                                    <strong> ID Tipo </strong>
+                                    <ul class="list">
+                                      <li *ngIf="change.operation === operation"> <p> <strong> New value: </strong>  {{change.columns.id_tipo?.new_value}} </p> </li>
+                                      <li> <p> <strong> Old value: </strong>  {{change.columns.id_tipo?.old_value}} </p> </li>
+                                    </ul>
+                              </div>
+                              <div class="col-xs-6 col-md-3">
+                                   <strong> Data </strong>
+                                    <ul class="list">
+                                      <li *ngIf="change.operation === operation">  <p> <strong> New value: </strong> <br> {{change.columns.data?.new_value}} </p>  </li>
+                                      <li>  <p> <strong> Old value: </strong> <br> {{change.columns.data?.old_value}} </p>  </li>
+                                    </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </ng-template>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-5">
+             <p class="mt20"> Total de registros: <strong> {{metas.total}} </strong> </p>
+          </div>
+          <div class="col-sm-7 text-right">
+                <ngb-pagination [collectionSize]="metas.total"
+                                [(page)]="page"
+                                [maxSize]="5"
+                                [rotate]="true"
+                                [ellipses]="false"
+                                [boundaryLinks]="true"
+                                (pageChange)="selectPage(page)">
+                </ngb-pagination>
+          </div>
+        </div>
+
+    </div>
+</div>
